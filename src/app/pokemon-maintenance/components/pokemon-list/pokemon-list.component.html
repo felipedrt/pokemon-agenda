@@ -1,3 +1,8 @@
-<p>
-  pokemon-list works!
-</p>
+<app-pokemon-search-bar></app-pokemon-search-bar>
+<div class="container container-fluid">
+  <div class="d-flex justify-content-center flex-wrap">
+    <div *ngFor="let card of cards$ | async" class="mx-3 mt-4">
+      <img [src]="card.imageUrl" alt="" srcset="">
+    </div>
+  </div>
+</div>
