@@ -1,3 +1,66 @@
-<p>
-  pokemon-details works!
-</p>
+<div class="container container-fluid mt-4">
+  <div class="d-flex" *ngIf="pokemon$ | async as pokemon; else loading">
+    <div>
+      <img style="height: 400px;" [src]="pokemon.imageUrl" alt="" srcset="">
+    </div>
+    <div class="d-flex flex-column w-100 mx-4">
+      <ng-container
+        [ngTemplateOutlet]="pokemonName"
+        [ngTemplateOutletContext]="{ pokemon: pokemon }">
+      </ng-container>
+      <ng-container
+        [ngTemplateOutlet]="pokemonWeakness"
+        [ngTemplateOutletContext]="{ pokemon: pokemon }">
+      </ng-container>
+      <ng-container
+        [ngTemplateOutlet]="pokemonResistance"
+        [ngTemplateOutletContext]="{ pokemon: pokemon }">
+      </ng-container>
+      <ng-container
+        [ngTemplateOutlet]="pokemonAttacks"
+        [ngTemplateOutletContext]="{ pokemon: pokemon }">
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <app-pokemon-loading message="Getting card data..."></app-pokemon-loading>
+</ng-template>
+<ng-template #pokemonName let-pokemon="pokemon">
+  <div class="attribute-title mt-4 mb-2">
+    <fa-icon class="mx-2" [icon]="['fas', 'circle-info']"></fa-icon>
+    <span class="mx-2">Name</span>
+  </div>
+  <div class="mx-4">
+    <span>{{ pokemon.id  }}:{{ pokemon.name }}</span>
+  </div>
+</ng-template>
+<ng-template #pokemonWeakness let-pokemon="pokemon">
+  <div class="attribute-title mt-4 mb-2">
+    <fa-icon class="mx-2" [icon]="['fas', 'skull-crossbones']"></fa-icon>
+    <span class="mx-2">Weakness</span>
+  </div>
+  <div class="mx-4" *ngFor="let weakness of pokemon.weaknesses">
+    <span>{{ weakness.type }} {{ weakness.value }}</span>
+  </div>
+</ng-template>
+<ng-template #pokemonResistance let-pokemon="pokemon">
+  <div class="attribute-title mt-4 mb-2">
+    <fa-icon class="mx-2" [icon]="['fas', 'shield']"></fa-icon>
+    <span class="mx-2">Resistance</span>
+  </div>
+  <div class="mx-4" *ngFor="let resistance of pokemon.resistances">
+    <span>{{ resistance.type }} {{ resistance.value }}</span>
+  </div>
+</ng-template>
+<ng-template #pokemonAttacks let-pokemon="pokemon">
+  <div class="attribute-title mt-4 mb-2">
+    <fa-icon class="mx-2" [icon]="['fas', 'bolt']"></fa-icon>
+    <span class="mx-2">Attacks</span>
+  </div>
+  <div class="mx-4" *ngFor="let attack of pokemon.attacks">
+    <fa-icon class="mx-2" [icon]="['fas', 'maximize']"></fa-icon>
+    <span class="attack-name" (click)="showAttackDetails(attack)">{{ attack.name }}</span>
+  </div>
+</ng-template>

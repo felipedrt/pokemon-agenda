@@ -6,7 +6,11 @@
     <input
       type="text"
       class="form-control search-input"
+      (input)="onInputTextChanged($event)"
       placeholder="Search for a pokemon's name">
     <i class="fab fa-github"></i>
+  </div>
+  <div class="d-flex justify-content-center">
+    <span class="text-white">We Gotta Search 'Em all</span>
   </div>
 </div>

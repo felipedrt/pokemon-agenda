@@ -1,8 +1,11 @@
 <app-pokemon-search-bar></app-pokemon-search-bar>
 <div class="container container-fluid">
-  <div class="d-flex justify-content-center flex-wrap">
-    <div *ngFor="let card of cards$ | async" class="mx-3 mt-4">
-      <img [src]="card.imageUrl" alt="" srcset="">
+  <div class="d-flex justify-content-center flex-wrap" *ngIf="cards$ | async as cards; else loading">
+    <div *ngFor="let card of cards" class="mx-3 mt-4">
+      <img [src]="card.imageUrl" alt="" srcset="" class="pokemon-card" (click)="onCardSelected(card)">
     </div>
   </div>
 </div>
+<ng-template #loading>
+  <app-pokemon-loading message="Looking for pokemons..."></app-pokemon-loading>
+</ng-template>

@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <div class="modal-title pull-left">
+    <div>
+      {{ attacks.name }} | {{ attacks.damage }}
+    </div>
+    <div class="d-flex">
+      <div *ngFor="let cost of attacks.cost" >
+        <span style="margin-right: 4px;">{{ cost }}</span>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="input-group">
+    <textarea class="form-control" readonly="true" [textContent]="attacks.text" aria-label="With textarea"></textarea>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide()">Close</button>
+</div>
