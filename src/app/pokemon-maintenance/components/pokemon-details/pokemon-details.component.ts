@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PokemonService } from '../../services/pokemon.service';
-import { PokemonDetail } from '../../models/pokemon-details';
 import { Observable } from 'rxjs';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { PokemonAttackDetailsModalComponent } from '../pokemon-attack-details-modal/pokemon-attack-details-modal.component';
@@ -14,7 +13,7 @@ import { Pokemon } from '../../models/pokemon';
 })
 export class PokemonDetailsComponent implements OnInit {
 
-  public pokemon$: Observable<PokemonDetail>;
+  public pokemon$: Observable<Pokemon>;
   public bsModalRef?: BsModalRef;
 
 

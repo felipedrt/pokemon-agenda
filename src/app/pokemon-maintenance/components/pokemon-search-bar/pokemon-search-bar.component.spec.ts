@@ -1,16 +1,28 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { PokemonSearchBarComponent } from './pokemon-search-bar.component';
+import { PokemonService } from '../../services/pokemon.service';
+import { HttpClientModule } from '@angular/common/http';
 
-describe('PokemonSearchBarComponent', () => {
+@Injectable()
+class MockPokemonService extends PokemonService {
+  override getPokemons(name: string = '') {
+  }
+}
+
+fdescribe('PokemonSearchBarComponent', () => {
   let component: PokemonSearchBarComponent;
   let fixture: ComponentFixture<PokemonSearchBarComponent>;
+  let pokemonService: PokemonService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      providers: [
+        { provide: PokemonService, useClass: MockPokemonService },
+      ],
+      imports: [HttpClientModule],
       declarations: [ PokemonSearchBarComponent ]
     })
     .compileComponents();
@@ -25,4 +37,16 @@ describe('PokemonSearchBarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // it('should trigger onInputChanged', () => {
+  //   const ev = {
+  //     target: {
+  //       value: ''
+  //     }
+  //   }
+
+  //   spyOn(pokemonService, 'getPokemons');
+  //   component.onInputTextChanged(ev);
+  //   expect(pokemonService.getPokemons).toHaveBeenCalled();
+  // });
 });

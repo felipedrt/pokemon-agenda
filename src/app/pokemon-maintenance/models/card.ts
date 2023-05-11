@@ -1,5 +1,5 @@
-import { PokemonDetail } from "./pokemon-details";
+import { Pokemon } from "./pokemon";
 
 export interface Card {
-  card: PokemonDetail,
+  card: Pokemon,
 }

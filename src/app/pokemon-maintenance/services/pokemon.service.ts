@@ -4,16 +4,14 @@ import { ApiUrls } from '../../shared/api-urls';
 import { Cards } from '../models/cards';
 import { Observable, Subject, debounceTime, map } from 'rxjs';
 import { Pokemon } from '../models/pokemon';
-import { Card } from '../models/card';
 import { ArrayFunctions } from 'src/app/shared/array-functions';
-import { PokemonDetail } from '../models/pokemon-details';
-
+import { Card } from '../models/card';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PokemonService {
-  pokemonChanged = new Subject<any>;
+  pokemonChanged = new Subject<Pokemon[]>;
 
   constructor(private http: HttpClient) {}
 
@@ -25,17 +23,17 @@ export class PokemonService {
     })
   }
 
-  getPokemons(name: string = ''): any {
+  getPokemons(name: string = '') {
     if (name) {
       this.searchPokemon(name);
     } else {
-      return this.http.get<Cards>(ApiUrls.POKEMON_URL).subscribe((data) => {
+      this.http.get<Cards>(ApiUrls.POKEMON_URL).subscribe((data) => {
         this.pokemonChanged.next(data.cards.sort((a, b) => ArrayFunctions.orderBy(a, b, 'name')));
       });
     }
   }
 
-  getPokemonDetails(id: string): Observable<PokemonDetail> {
+  getPokemonDetails(id: string): Observable<Pokemon> {
     return this.http.get<Card>(`${ApiUrls.POKEMON_URL}/${id}`).pipe(
       map((data) => {
         return data.card;

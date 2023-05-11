@@ -15,6 +15,5 @@ export class PokemonAttackDetailsModalComponent {
   constructor(public bsModalRef: BsModalRef) {}
 
   ngOnInit() {
-    console.log(this.attacks);
   }
 }
