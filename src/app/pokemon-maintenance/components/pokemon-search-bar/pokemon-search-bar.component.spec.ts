@@ -6,24 +6,20 @@ import { PokemonSearchBarComponent } from './pokemon-search-bar.component';
 import { PokemonService } from '../../services/pokemon.service';
 import { HttpClientModule } from '@angular/common/http';
 
-@Injectable()
-class MockPokemonService extends PokemonService {
-  override getPokemons(name: string = '') {
-  }
-}
-
-fdescribe('PokemonSearchBarComponent', () => {
+describe('PokemonSearchBarComponent', () => {
   let component: PokemonSearchBarComponent;
   let fixture: ComponentFixture<PokemonSearchBarComponent>;
-  let pokemonService: PokemonService;
+  const mockPokemonService = {
+    getPokemons: jasmine.createSpy()
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        { provide: PokemonService, useClass: MockPokemonService },
+        { provide: PokemonService, useValue: mockPokemonService },
       ],
       imports: [HttpClientModule],
-      declarations: [ PokemonSearchBarComponent ]
+      declarations: [PokemonSearchBarComponent]
     })
     .compileComponents();
   }));
@@ -38,15 +34,19 @@ fdescribe('PokemonSearchBarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should trigger onInputChanged', () => {
-  //   const ev = {
-  //     target: {
-  //       value: ''
-  //     }
-  //   }
+  it('should trigger onInputChanged by the html', () => {
+    const input = fixture.nativeElement.querySelector('#searchInput');
+    input.value = '';
+    expect(mockPokemonService.getPokemons).toHaveBeenCalled();
+  });
 
-  //   spyOn(pokemonService, 'getPokemons');
-  //   component.onInputTextChanged(ev);
-  //   expect(pokemonService.getPokemons).toHaveBeenCalled();
-  // });
+  it('should trigger onInputChanged', () => {
+    const ev = {
+      target: {
+        value: ''
+      }
+    }
+    component.onInputTextChanged(ev);
+    expect(mockPokemonService.getPokemons).toHaveBeenCalled();
+  });
 });
