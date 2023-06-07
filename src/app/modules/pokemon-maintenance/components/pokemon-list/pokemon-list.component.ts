@@ -9,16 +9,11 @@ import { Router } from '@angular/router';
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.scss']
 })
-export class PokemonListComponent implements OnInit {
+export class PokemonListComponent  {
 
-  public cards$: Observable<Pokemon[]>;
+  public cards$ = this.pokemonService.pokemon$;
 
   constructor(private pokemonService: PokemonService, private router: Router) { }
-
-  ngOnInit() {
-    this.pokemonService.getPokemons();
-    this.cards$ = this.pokemonService.getSearchedPokemon();
-  }
 
   onCardSelected(pokemon: Pokemon) {
     this.router.navigate(['pokemon-details', pokemon.id]);

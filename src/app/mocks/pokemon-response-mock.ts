@@ -1,4 +1,4 @@
-import { Pokemon } from "../pokemon-maintenance/models/pokemon";
+import { Pokemon } from "../modules/pokemon-maintenance/models/pokemon";
 
 export const POKEMON_RESPONSE_MOCK: Pokemon = {
   "id": "swsh4-177",
