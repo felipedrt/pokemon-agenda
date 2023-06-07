@@ -14,6 +14,6 @@ export class PokemonSearchBarComponent implements OnInit {
   }
 
   onInputTextChanged(ev: any) {
-    this.pokemonService.getPokemons(ev.target.value);
+    this.pokemonService.searchPokemon(ev.target.value);
   }
 }
